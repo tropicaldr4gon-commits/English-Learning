@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Ôn Luyện Ngữ Pháp Toàn Diện</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-bottom: 30px; }
+        h2 { color: #2980b9; border-left: 4px solid #e74c3c; padding-left: 10px; }
+        h3 { color: #8e44ad; }
+        .lesson-content { display: none; animation: fadeIn 0.5s; }
+        .lesson-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Menu Tabs */
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 15px; border: none; background: #bdc3c7; color: #fff; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .tab-btn.active { background: #3498db; }
+        .tab-btn.locked { background: #ecf0f1; color: #95a5a6; cursor: not-allowed; }
+        
+        /* Game & Quiz Styles */
+        .interactive-section { background: #fdfefe; border: 2px dashed #f39c12; padding: 20px; border-radius: 8px; margin-top: 25px; text-align: center; }
+        .word-display { font-size: 26px; font-weight: bold; margin: 15px 0; color: #d35400; }
+        .btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: 0.2s; font-weight: bold; }
+        .btn-blue { background: #3498db; color: white; }
+        .btn-blue:hover { background: #2980b9; }
+        .btn-green { background: #27ae60; color: white; width: 100%; padding: 15px; margin-top: 20px; }
+        .btn-green:hover { background: #2ecc71; }
+        .btn-orange { background: #e67e22; color: white; }
+        .msg { font-weight: bold; margin-top: 15px; min-height: 24px; }
+        .correct { color: #27ae60; }
+        .wrong { color: #c0392b; }
+        
+        /* Quiz Specific */
+        .timer { font-size: 20px; font-weight: bold; color: #e74c3c; text-align: right; margin-bottom: 15px; }
+        .question-block { text-align: left; background: #ebf5fb; padding: 15px; border-radius: 5px; margin-bottom: 15px; }
+        .question-text { font-weight: bold; margin-bottom: 10px; font-size: 18px; }
+        .option-label { display: block; margin-bottom: 8px; cursor: pointer; padding: 8px; background: #fff; border-radius: 4px; border: 1px solid #d6eaf8; }
+        .option-label:hover { background: #d6eaf8; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>HỆ THỐNG NGỮ PHÁP TIẾNG ANH</h1>
+    <div class="tabs" id="lesson-tabs">
+        <button class="tab-btn active" onclick="switchLesson(1)" id="tab-1">1. Danh Từ</button>
+        <button class="tab-btn locked" onclick="switchLesson(2)" id="tab-2">2. Đại Từ 🔒</button>
+        <button class="tab-btn locked" onclick="switchLesson(3)" id="tab-3">3. Tính Từ 🔒</button>
+    </div>
+
+    <div id="lesson-1" class="lesson-content active">
+        <h2>Bài 1: Danh Từ (Nouns)</h2>
+        <h3>1. Khái quát</h3>
+        <p>Danh từ chỉ người, vật, nơi chốn, tính chất hoặc hoạt động. Ví dụ: teacher, chair, city, beauty.</p>
+        <h3>2. Phân loại</h3>
+        <ul>
+            <li><b>Đếm được (Countable):</b> Có số ít và số nhiều (book -> books).</li>
+            <li><b>Không đếm được (Uncountable):</b> Chỉ chất liệu, khái niệm (water, information, money). KHÔNG dùng a/an.</li>
+        </ul>
+        <h3>3. Danh từ số nhiều bất quy tắc</h3>
+        <p>man -> men, woman -> women, child -> children, foot -> feet, tooth -> teeth, mouse -> mice.</p>
+    </div>
+
+    <div id="lesson-2" class="lesson-content">
+        <h2>Bài 2: Đại Từ (Pronouns)</h2>
+        <h3>1. Khái quát</h3>
+        <p>Đại từ dùng để thay thế cho danh từ, tránh việc lặp lại danh từ đó nhiều lần.</p>
+        <h3>2. Phân loại chính</h3>
+        <ul>
+            <li><b>Đại từ nhân xưng:</b> I, you, we, they, he, she, it (Làm chủ ngữ) / me, you, us, them, him, her, it (Làm tân ngữ).</li>
+            <li><b>Đại từ sở hữu:</b> mine, yours, ours, theirs, his, hers (Thay thế cho Tính từ sở hữu + Danh từ).</li>
+            <li><b>Đại từ phản thân:</b> myself, yourself, themselves... (Dùng khi chủ ngữ và tân ngữ là cùng một đối tượng).</li>
+        </ul>
+    </div>
+    <div id="lesson-3" class="lesson-content">
+        <h2>Bài 3: Tính Từ (Adjectives)</h2>
+        <h3>1. Vị trí của Tính từ</h3>
+        <ul>
+            <li>Đứng trước danh từ để bổ nghĩa: a <b>beautiful</b> girl.</li>
+            <li>Đứng sau động từ to be và các động từ liên kết (look, feel, seem...): He looks <b>tired</b>.</li>
+        </ul>
+        <h3>2. Trật tự tính từ (Quy tắc OSASCOMP)</h3>
+        <p>Opinion (Ý kiến) - Size (Kích cỡ) - Age (Tuổi/Cũ mới) - Shape (Hình dáng) - Color (Màu sắc) - Origin (Nguồn gốc) - Material (Chất liệu) - Purpose (Mục đích).</p>
+    </div>
+
+    <div class="interactive-section" id="game-section">
+        <h2 id="game-title">Mini-Game: Khởi động</h2>
+        <p id="game-desc">Hoàn thành game để mở khóa bài kiểm tra trắc nghiệm.</p>
+        <button class="btn btn-orange" id="btn-start-game" onclick="startGame()">Bắt đầu Game</button>
+        
+        <div id="game-play-area" style="display:none;">
+            <div class="word-display" id="game-word">Word</div>
+            <div id="game-buttons"></div> <div class="msg" id="game-msg"></div>
+        </div>
+    </div>
+
+    <div class="interactive-section" id="quiz-section" style="display:none;">
+        <h2>Bài Kiểm Tra Vượt Ải</h2>
+        <p>Giới hạn: <b>10 phút</b>. Yêu cầu: <b>Đúng 100%</b> để mở khóa bài tiếp theo.</p>
+        <button class="btn btn-orange" id="btn-start-quiz" onclick="startQuiz()">Bắt đầu làm bài</button>
+        
+        <div id="quiz-play-area" style="display:none;">
+            <div class="timer" id="timer">10:00</div>
+            <div id="questions-container"></div>
+            <button class="btn btn-green" id="btn-submit" onclick="submitQuiz()">Nộp Bài</button>
+            <div class="msg" id="quiz-msg"></div>
+        </div>
+    </div>
+
+</div> ```
+
+### Phần 4: JavaScript - Ngân hàng Dữ liệu
+Đây là bộ não chứa cấu hình câu hỏi cho từng bài. Bạn có thể dễ dàng thêm hàng trăm câu hỏi từ file PDF vào cấu trúc mảng này sau này để mở rộng (Explore) công cụ học tập.
+
+```html
+<script>
+    // --- DỮ LIỆU GAME & TRẮC NGHIỆM CHO TỪNG BÀI ---
+    const lessonData = {
+        1: { // Dữ liệu Bài 1 (Danh từ)
+            gameType: "classify",
+            gameOptions: [
+                { label: "Đếm được", value: "C" }, { label: "Không đếm được", value: "U" }
+            ],
+            gameWords: [
+                { word: "water", ans: "U" }, { word: "children", ans: "C" }, { word: "information", ans: "U" }
+            ],
+            quizQuestions: [
+                { q: "Mạo từ 'a/an' KHÔNG dùng trước danh từ nào?", opts: ["Danh từ đếm được số ít", "Danh từ không đếm được", "Danh từ chỉ nghề nghiệp"], ans: 1 },
+                { q: "Số nhiều của 'mouse' là?", opts: ["mouses", "mice", "mouse"], ans: 1 },
+                { q: "Chọn danh từ bất quy tắc đúng:", opts: ["childs", "tooths", "children"], ans: 2 }
+            ]
+        },
+        2: { // Dữ liệu Bài 2 (Đại từ)
+            gameType: "classify",
+            gameOptions: [
+                { label: "Đại từ nhân xưng", value: "P" }, { label: "Đại từ phản thân", value: "R" }
+            ],
+            gameWords: [
+                { word: "He", ans: "P" }, { word: "Themselves", ans: "R" }, { word: "Us", ans: "P" }
+            ],
+            quizQuestions: [
+                { q: "Đại từ phản thân của 'She' là?", opts: ["hers", "herself", "her"], ans: 1 },
+                { q: "Từ nào là đại từ sở hữu?", opts: ["my", "mine", "me"], ans: 1 },
+                { q: "___ are going to the cinema.", opts: ["Them", "Their", "They"], ans: 2 }
+            ]
+        },
+        3: { // Dữ liệu Bài 3 (Tính từ)
+            gameType: "classify",
+            gameOptions: [
+                { label: "Tính từ", value: "A" }, { label: "Danh từ", value: "N" }
+            ],
+            gameWords: [
+                { word: "Beautiful", ans: "A" }, { word: "Beauty", ans: "N" }, { word: "Important", ans: "A" }
+            ],
+            quizQuestions: [
+                { q: "Vị trí đúng của tính từ?", opts: ["Sau danh từ", "Trước danh từ", "Cuối câu"], ans: 1 },
+                { q: "Theo quy tắc OSASCOMP, thứ tự nào đúng?", opts: ["a red big car", "a big red car", "a car big red"], ans: 1 },
+                { q: "He looks ___ today.", opts: ["tired", "tiredly", "tiringly"], ans: 0 }
+            ]
+        }
+    };
+    let currentLesson = 1;
+    let unlockedLessons = 1;
+    let currentGameIndex = 0;
+    
+    // Đảo mảng ngẫu nhiên
+    function shuffle(array) {
+        let arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function switchLesson(lessonId) {
+        if (lessonId > unlockedLessons) return; // Khóa bài
+        currentLesson = lessonId;
+        
+        // Giao diện Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`tab-${lessonId}`).classList.add('active');
+        
+        // Nội dung lý thuyết
+        document.querySelectorAll('.lesson-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(`lesson-${lessonId}`).classList.add('active');
+        
+        // Reset giao diện Game & Quiz
+        document.getElementById('game-section').style.display = 'block';
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('btn-start-game').style.display = 'inline-block';
+        document.getElementById('game-play-area').style.display = 'none';
+    }
+
+    function startGame() {
+        currentGameIndex = 0;
+        let data = lessonData[currentLesson];
+        document.getElementById('btn-start-game').style.display = 'none';
+        document.getElementById('game-play-area').style.display = 'block';
+        document.getElementById('game-msg').innerText = '';
+        
+        // Tạo nút Game
+        let btnContainer = document.getElementById('game-buttons');
+        btnContainer.innerHTML = '';
+        data.gameOptions.forEach(opt => {
+            btnContainer.innerHTML += `<button class="btn btn-blue" onclick="checkGame('${opt.value}')">${opt.label}</button>`;
+        });
+        showNextWord();
+    }
+
+    function showNextWord() {
+        let data = lessonData[currentLesson];
+        if (currentGameIndex < data.gameWords.length) {
+            document.getElementById('game-word').innerText = data.gameWords[currentGameIndex].word;
+        } else {
+            document.getElementById('game-word').innerText = "Hoàn thành Mini-game!";
+            document.getElementById('game-buttons').innerHTML = '';
+            document.getElementById('quiz-section').style.display = 'block'; // Mở khóa Quiz
+        }
+    }
+
+    function checkGame(val) {
+        let data = lessonData[currentLesson];
+        let msg = document.getElementById('game-msg');
+        if (val === data.gameWords[currentGameIndex].ans) {
+            msg.innerText = "Chính xác!"; msg.className = "msg correct";
+            currentGameIndex++;
+            setTimeout(() => { msg.innerText = ""; showNextWord(); }, 600);
+        } else {
+            msg.innerText = "Sai rồi! Thử lại."; msg.className = "msg wrong";
+        }
+    }
+    let quizData = [];
+    let timeLeft = 600; 
+    let timerInterval;
+
+    function startQuiz() {
+        document.getElementById('btn-start-quiz').style.display = 'none';
+        document.getElementById('quiz-play-area').style.display = 'block';
+        document.getElementById('quiz-msg').innerText = '';
+        
+        clearInterval(timerInterval);
+        timeLeft = 600;
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+
+        // Chuẩn bị & xáo trộn câu hỏi từ dữ liệu bài hiện tại
+        let rawQuestions = lessonData[currentLesson].quizQuestions;
+        quizData = shuffle(rawQuestions).map(q => {
+            let optsWithAns = q.opts.map((opt, idx) => ({ text: opt, isCorrect: idx === q.ans }));
+            let shuffledOpts = shuffle(optsWithAns);
+            return { q: q.q, opts: shuffledOpts.map(o => o.text), correctIdx: shuffledOpts.findIndex(o => o.isCorrect) };
+        });
+        renderQuiz();
+    }
+
+    function updateTimer() {
+        if(timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(true); return; }
+        timeLeft--;
+        let m = Math.floor(timeLeft / 60); let s = timeLeft % 60;
+        document.getElementById('timer').innerText = `Thời gian: ${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+    }
+
+    function renderQuiz() {
+        let html = '';
+        quizData.forEach((q, qIdx) => {
+            html += `<div class="question-block"><div class="question-text">Câu ${qIdx + 1}: ${q.q}</div>`;
+            q.opts.forEach((opt, oIdx) => {
+                html += `<label class="option-label"><input type="radio" name="q${qIdx}" value="${oIdx}"> ${opt}</label>`;
+            });
+            html += `</div>`;
+        });
+        document.getElementById('questions-container').innerHTML = html;
+        document.getElementById('btn-submit').style.display = 'block';
+    }
+
+    function submitQuiz(isTimeout = false) {
+        clearInterval(timerInterval);
+        let score = 0;
+        quizData.forEach((q, idx) => {
+            let selected = document.querySelector(`input[name="q${idx}"]:checked`);
+            if (selected && parseInt(selected.value) === q.correctIdx) score++;
+        });
+
+        let msg = document.getElementById('quiz-msg');
+        document.getElementById('btn-submit').style.display = 'none';
+
+        if (score === quizData.length) {
+            msg.innerHTML = `🎉 Tuyệt vời! 100% chính xác.`; msg.className = "msg correct";
+            if (currentLesson < 3) {
+                unlockedLessons = Math.max(unlockedLessons, currentLesson + 1);
+                let nextTab = document.getElementById(`tab-${currentLesson + 1}`);
+                nextTab.classList.remove('locked');
+                nextTab.innerText = nextTab.innerText.replace(' 🔒', '');
+                msg.innerHTML += `<br><b>Đã mở khóa Bài ${currentLesson + 1}!</b> Bạn có thể chọn bài ở Menu.`;
+            }
+        } else {
+            let cause = isTimeout ? "Hết thời gian!" : "Chưa đạt 100%.";
+            msg.innerText = `${cause} Bạn đúng ${score}/${quizData.length}. Cần làm lại.`;
+            msg.className = "msg wrong";
+            document.getElementById('btn-start-quiz').style.display = 'inline-block';
+            document.getElementById('btn-start-quiz').innerText = 'Làm lại trắc nghiệm';
+            document.getElementById('quiz-play-area').style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>
